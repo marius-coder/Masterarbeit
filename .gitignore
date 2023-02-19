@@ -361,3 +361,9 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Masterarbeit/Gefilterte Daten
+/Masterarbeit/Filtered.csv
+/Masterarbeit/Filtered_15min.csv
+/Masterarbeit/Daten
+/Masterarbeit/combined.csv
+/Masterarbeit/Filtered_1hour.csv

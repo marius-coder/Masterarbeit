@@ -1,0 +1,47 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>a05c16f9-59b3-4511-b5c4-063108b0e5cf</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>Predicting\module1.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <Name>Masterarbeit</Name>
+    <RootNamespace>Masterarbeit</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Aufbereitung\BusinessDay.py" />
+    <Compile Include="Masterarbeit.py" />
+    <Compile Include="Aufbereitung\Filtern.py" />
+    <Compile Include="Misc\Plots.py" />
+    <Compile Include="module2.py" />
+    <Compile Include="Predicting\module1.py" />
+    <Compile Include="Predicting\module2.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Aufbereitung\" />
+    <Folder Include="Misc\" />
+    <Folder Include="Regler\" />
+    <Folder Include="Predicting\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+  <!-- Uncomment the CoreCompile target to enable the Build command in
+       Visual Studio and specify your pre- and post-build commands in
+       the BeforeBuild and AfterBuild targets below. -->
+  <!--<Target Name="CoreCompile" />-->
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+</Project>
