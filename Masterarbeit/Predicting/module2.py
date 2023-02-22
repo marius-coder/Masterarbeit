@@ -8,6 +8,8 @@ from sklearn.metrics import mean_squared_error
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
+from keras.optimizers import Adam
+
 
 data = pd.read_csv("Filtered_1hour.csv", sep=";", decimal=",", encoding= "cp1252",parse_dates=["Datetime"])
 # Split the data into input/output sequences
@@ -26,14 +28,16 @@ test_input = test_input.reshape((test_input.shape[0], 1, test_input.shape[1]))
 
 
 # Define the Keras model
-def create_model(optimizer='adam', dropout_rate=0.0, neurons=100):
+def create_model(optimizer='adam', dropout_rate=0.0, neurons=100,learning_rate=0.0001,activation="relu"):
+
+
     model = Sequential()
     model.add(Dense(neurons, input_shape=(1,5), activation='relu'))
     model.add(Dropout(dropout_rate))
-    model.add(Dense(neurons, activation='relu'))
+    model.add(Dense(neurons, activation=activation))
     model.add(Dropout(dropout_rate))
     model.add(Dense(1))
-    model.compile(loss='mean_squared_error', optimizer=optimizer)
+    model.compile(loss='mean_squared_error', optimizer=Adam(learning_rate=learning_rate))
     return model
 
 # Create a KerasRegressor wrapper for the scikit-learn API
@@ -42,15 +46,18 @@ model = KerasRegressor(build_fn=create_model, verbose=0)
 # Define the hyperparameters to be tuned
 param_grid = {
     'neurons': [50, 100, 200],
-    'dropout_rate': [0.0, 0.2, 0.5],
-    'optimizer': ['adam', 'sgd', 'rmsprop']
+    #'dropout_rate': [0.0, 0.2, 0.5],
+    #'optimizer': ['adam', 'sgd', 'rmsprop']    
+    "epochs": [20,40,60],
+    "learning_rate": [0.001,0.0005,0.0001],
+    "activation": ["exponential","relu","leaky_relu"]
 }
 
 # Perform grid search cross-validation with 5-fold cross-validation
 grid = GridSearchCV(estimator=model, param_grid=param_grid, cv=5)
 
 # Fit the grid search to the training data
-grid_result = grid.fit(train_input, train_output)
+grid_result = grid.fit(train_input, train_output,batch_size=32)
 
 # Print the best hyperparameters and corresponding mean test score
 print("Best: %f using %s" % (grid_result.best_score_, grid_result.best_params_))
